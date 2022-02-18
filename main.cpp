@@ -10,18 +10,16 @@ public:
 };
 
 class NotEnough : public std::exception {
-    std::string code;
-    int remaining;
-    int quantity;
-
+    std::string text;
 public:
-    NotEnough(std::string inCode, int inRemaining, int inQuantity) : code(inCode), remaining(inRemaining),
-                                                                     quantity(inQuantity) {};
+    NotEnough(std::string inCode, int inRemaining, int inQuantity)
+    {
+        text = "Not enough! Code: " + inCode + "  remaining: "
+               + std::to_string(inRemaining) + " quantity: "
+               + std::to_string(inQuantity);
+    };
 
     const char *what() const noexcept override {
-        std::string text = "Not enough! Code: " + code + "  remaining: "
-                           + std::to_string(remaining) + " quantity: "
-                           + std::to_string(quantity);
         return text.c_str();
     }
 };
